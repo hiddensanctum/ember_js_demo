@@ -13,6 +13,12 @@ App.PostsRoute = Ember.Route.extend({
   }
 });
 
+App.PostRoute = Ember.Route.extend({
+  model: function(params) {
+    return posts.findBy('id', params.post_id);
+  }
+});
+
 App.PostController = Ember.ObjectController.extend({
   isEditing: false,
 
@@ -25,11 +31,15 @@ App.PostController = Ember.ObjectController.extend({
   }
 });
 
+Ember.Handlebars.helper('format-date', function(date) {
+  return moment(date).fromNow();
+});
+
 var posts = [{
   id: '1',
   title: 'Ember Ember Ember',
   author: { name: "James" },
-  date: new Date('11-17-2013'),
+  date: new Date('11-10-2013'),
   excerpt: 'Ember is cool',
   body: 'I want to use ember with rails'
 }, {
